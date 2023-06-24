@@ -1,6 +1,41 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
     <body>
         Hello
+        <button id="openButton">Open modal dialog</button>
+        <dialog id="modalDialog" class="dialog">
+            <header>
+                <span>Header</span>
+                <button id="closeButton" type="button">
+                    <span class="batsu"></span>
+                </button>
+            </header>
+            <div>Message</div>
+            <form method="dialog">
+                <button type="submit" value="ok">Ok</button>
+                <button type="submit" value="cancel">Cancel</button>
+            </form>
+        </dialog>
     </body>
+
+    <script>
+        const openButton = document.getElementById("openButton");
+        const modalDialog = document.getElementById("modalDialog");
+        const closeButton = document.getElementById("closeButton");
+
+        openButton?.addEventListener("click", () => {
+            modalDialog.showModal();
+        });
+
+        closeButton?.addEventListener("click", () => {
+            modalDialog.close('cancel');
+        });
+
+        modalDialog?.addEventListener("close", (e) => {
+            console.info(modalDialog.returnValue);
+        });
+    </script>
 </html>
