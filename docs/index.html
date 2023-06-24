@@ -6,7 +6,7 @@
     <body>
         Hello
         <button id="openButton">Open modal dialog</button>
-        <dialog id="modalDialog" class="dialog">
+        <dialog id="modalDialog" class="dialog" style="display: none;">
             <header>
                 <span>Header</span>
                 <button id="closeButton" type="button">
@@ -26,7 +26,9 @@
         const modalDialog = document.getElementById("modalDialog");
         const closeButton = document.getElementById("closeButton");
 
-        openButton?.addEventListener("click", () => {
+        openButton?.addEventListener("click", async () => {
+            await waitDialogAnimation(modalDialog);
+            modalDialog.removeAttribute("style");
             modalDialog.showModal();
         });
 
@@ -34,7 +36,13 @@
             modalDialog.close('cancel');
         });
 
-        modalDialog?.addEventListener("close", (e) => {
+        const waitDialogAnimation = (dialog) => Promise.allSettled(
+            dialog.getAnimations().map((animation) => animation.finished)
+        );
+
+        modalDialog?.addEventListener("close", async (e) => {
+            await waitDialogAnimation(e.target);
+            modalDialog.style.display = "none";
             console.info(modalDialog.returnValue);
         });
     </script>

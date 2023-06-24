@@ -30,6 +30,14 @@
 }
 
 .dialog {
+    display: block;
+    position: fixed;
+    inset-inline: 0;
+    inset-block: 0;
+    animation-name: fadeOut, zoomOut;
+    animation-fill-mode: forwards;
+    animation-duration: 200ms;
+    animation-timing-function: ease-out;
     box-shadow: var(--dialog-shadow);
 }
 
@@ -46,12 +54,30 @@
     }
 }
 
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 @keyframes zoomIn {
     from {
         transform: scale(0.6);
     }
     to {
         transform: scale(1);
+    }
+}
+
+@keyframes zoomOut {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.6);
     }
 }
 
